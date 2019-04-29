@@ -1,0 +1,10 @@
+# React
+- props
+  - defaultProps
+  - propTypes
+- state
+- 生命周期
+- key
+- refs
+- context
+- pureComponent
