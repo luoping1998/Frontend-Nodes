@@ -56,8 +56,8 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
 - props: 来自父组件的传参
 
 ## 创建 React 元素的方法
-常用有两种，一种是使用 JSX 来创建 React 元素，一种是使用 createElement 来创建。
-- JSX 创建（🌰 1）
+通常两种写法：
+- JSX 语法（🌰 1）
 ```
 // 在某组件的 render 中，返回一个 JSX 对象
 render() {
@@ -70,7 +70,7 @@ render() {
     )
 }
 ```
-- creatEmenlent 创建（🌰 2）
+- creatEmenlent 手动创建（🌰 2）
 ```
 class Hello extends React.Component {
   render() {
@@ -86,63 +86,6 @@ ReactDOM.render(
 );
 ```
 > JSX 本身并不是什么高深的技术，可以说只是一个比较高级但很直观的语法糖。它非常有用，却不是一个必需品，没有 JSX 的 React 也可以正常工作，如 🌰 2。
-### jsx 创建 React元素
-```
-export function jsx(type, config, maybeKey) {
-  // 初始化会用到的一系列变量
-  let propName;
-
-  const props = {};
-
-  let key = null;
-  let ref = null;
-
-  if (hasValidRef(config)) {
-    ref = config.ref;
-  }
-
-  if (hasValidKey(config)) {
-    key = '' + config.key;
-  }
-
-  // 将 config 中的属性，复制到 props 新对象中
-  for (propName in config) {
-    if (
-      hasOwnProperty.call(config, propName) &&
-      !RESERVED_PROPS.hasOwnProperty(propName)
-    ) {
-      props[propName] = config[propName];
-    }
-  }
-
-  // 设置 key
-  if (maybeKey !== undefined) {
-    key = '' + maybeKey;
-  }
-
-  // 对于设置了 defaultProps 的元素进行检查
-  if (type && type.defaultProps) {
-    const defaultProps = type.defaultProps;
-    for (propName in defaultProps) {
-      // 如果props属性中没有某属性，则设置为默认属性中的值
-      if (props[propName] === undefined) {
-        props[propName] = defaultProps[propName];
-      }
-    }
-  }
-  
-  // 最后返回一个 ReactElement 对象
-  return ReactElement(
-    type,
-    key,
-    ref,
-    undefined,
-    undefined,
-    ReactCurrentOwner.current,
-    props,
-  );
-}
-```
 ### createElement 创建
 ```
 export function createElement(type, config, children) {
@@ -219,6 +162,66 @@ export function createElement(type, config, children) {
   );
 }
 ```
+### jsx (react16 中新增)
+```
+export function jsx(type, config, maybeKey) {
+  // 初始化会用到的一系列变量
+  let propName;
 
-> 其实可以很清楚的看出来，JSX 和 createElement 创建 react 元素的步骤是一样的：
+  const props = {};
+
+  let key = null;
+  let ref = null;
+
+  if (hasValidRef(config)) {
+    ref = config.ref;
+  }
+
+  if (hasValidKey(config)) {
+    key = '' + config.key;
+  }
+
+  // 将 config 中的属性，复制到 props 新对象中
+  for (propName in config) {
+    if (
+      hasOwnProperty.call(config, propName) &&
+      !RESERVED_PROPS.hasOwnProperty(propName)
+    ) {
+      props[propName] = config[propName];
+    }
+  }
+
+  // 设置 key
+  if (maybeKey !== undefined) {
+    key = '' + maybeKey;
+  }
+
+  // 对于设置了 defaultProps 的元素进行检查
+  if (type && type.defaultProps) {
+    const defaultProps = type.defaultProps;
+    for (propName in defaultProps) {
+      // 如果props属性中没有某属性，则设置为默认属性中的值
+      if (props[propName] === undefined) {
+        props[propName] = defaultProps[propName];
+      }
+    }
+  }
+  
+  // 最后返回一个 ReactElement 对象
+  return ReactElement(
+    type,
+    key,
+    ref,
+    undefined,
+    undefined,
+    ReactCurrentOwner.current,
+    props,
+  );
+}
+```
+> 其实可以很清楚的看出来，jsx 和 createElement 创建 react 元素的步骤是一样的：
 初始化变量 -> 获取属性 ref, key, props -> 对于设置了 defaultProps 的组件进行相应判断及操作 -> 返回相应的 ReactElement 对象
+
+> Q: 为什么已经有了 createElement 还要一个 jsx ？
+>
+> A: we may want to special case jsxs internally to take advantage of static children.for now we can ship identical prod functions (引自代码注释，大概意思可能是说它是在特殊的情况下为静态的 children 使用的方法吧 🤷‍♀️ [这还有个链接](https://github.com/reactjs/rfcs/pull/107))
