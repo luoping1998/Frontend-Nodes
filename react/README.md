@@ -1,12 +1,13 @@
 # React
-- [基础篇 【✈️ 快速回顾使用 不详细】](./基础.md)
+- [基础篇](./基础.md)【✈️ 快速回顾使用 不详细】
 - [createElement](./createElement.md)
+- [ReactDOM && DOM](./ReactDOM.md)
 - props
   - defaultProps
-  - propTypes
+  - prop-types (propTypes)
 - [state](./state.md)
 - 生命周期
 - key
 - refs
 - context
-- pureComponent
+- [Component && pureComponent](./Component%20&&%20pureComponent.md)
