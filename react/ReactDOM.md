@@ -1,4 +1,5 @@
 > 在挂载根组件时，通常通过手动调用 React.render(<App />, document.getElementById("root"))，那 render 到底做了 什🐎 呢？
+
 # ReactDOM
 ```
 const ReactDOM: Object = {
@@ -23,7 +24,7 @@ const ReactDOM: Object = {
     );
   },
 
-  // 关键
+  // 🏆 关键的 render 函数
   render(
     element: React$Element<any>,
     container: DOMContainer,
@@ -40,28 +41,30 @@ const ReactDOM: Object = {
   // ...
 };
 ```
-从上面代码中可以看到，在 ReactDOM 中 render 是通过调用 legacyRenderSubtreeIntoContainer 方法来实现的。且，可以发现hydrate 和 render 只有 一个参数不同：forcrHydrate
-## legacyRenderSubtreeIntoContainer 方法
-由函数名得该函数的功能，将子树 **渲染** 进父级 Container 中✌️。
+从上面代码中可以看到，在 ReactDOM 中 render 是通过调用 legacyRenderSubtreeIntoContainer 方法来实现的，所以就先来看看它的实现 🏃‍♀️。
+
+## legacyRenderSubtreeIntoContainer
+由函数名得该函数的功能，将子树 **渲染** 到容器中✌️。
 ```
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>, // 父组件
   children: ReactNodeList, // 子树 
-  container: DOMContainer,
+
+  container: DOMContainer, // 容器？？？
   forceHydrate: boolean, // 是否为服务器渲染
   callback: ?Function, // 执行后的回调函数
 ) {
 
   // 获取 container 的 root
   let root: Root = (container._reactRootContainer: any);
-  // 没有 root，则默认为挂载
+  // 如果没有 root，则认为需要挂载
   if (!root) { // 记为 🌿
-    // 创建 root 使用：legacyCreateRootFromDOMContainer 1⃣️
+    // 创建 root，使用：legacyCreateRootFromDOMContainer 1⃣️
     root = container._reactRootContainer = legacyCreateRootFromDOMContainer(
       container,
       forceHydrate,
     );
-    // 如果有回调函数 为回调函数绑定 this
+    // 为回调函数绑定 this
     if (typeof callback === 'function') {
       const originalCallback = callback;
       callback = function() {
@@ -70,8 +73,9 @@ function legacyRenderSubtreeIntoContainer(
         originalCallback.call(instance);
       };
     }
-    // 初始化的挂载 不需要放入批处理中
-    unbatchedUpdates(() => { // 不加入批处理队列 使用 unbatchedUpdates 2⃣️
+    // 初始化的挂载，不需要放入批处理中
+    // 不加入批处理队列 使用 unbatchedUpdates 2⃣️
+    unbatchedUpdates(() => {
       // 如果存在父组件 将子组件装入父组件中
       if (parentComponent != null) {
         root.legacy_renderSubtreeIntoContainer(
@@ -86,7 +90,7 @@ function legacyRenderSubtreeIntoContainer(
     });
   } else { // 回到 🌿
     // 存在 root 则为更新操作
-    // 为 callback 绑定 this
+    // 同理为 callback 绑定 this
     if (typeof callback === 'function') {
       const originalCallback = callback;
       callback = function() {
@@ -111,7 +115,7 @@ function legacyRenderSubtreeIntoContainer(
   return getPublicRootInstance(root._internalRoot);
 }
 ```
-由代码可以得出，当初次调用该函数时，会将组件视为首次挂载，创建 root 并且不进入批处理队列，调用 unbatchedUpdates 挂载到相应的位置；否则的话，会被加入到批处理队列中，等待主线程空档期执行。
+由代码可以得出，当调用该函数时，如果组件没有 root，则认为是首次挂载，为其创建 root 并且不进入批处理队列 => 调用 unbatchedUpdates 挂载到相应的位置；否则的话，会被加入到批处理队列中，等待主线程空档期执行。
 - legacyCreateRootFromDOMContainer 1⃣️ : 
 ```
 function legacyCreateRootFromDOMContainer(

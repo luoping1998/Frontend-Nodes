@@ -225,3 +225,8 @@ export function jsx(type, config, maybeKey) {
 > Q: 为什么已经有了 createElement 还要一个 jsx ？
 >
 > A: we may want to special case jsxs internally to take advantage of static children.for now we can ship identical prod functions (引自代码注释，大概意思可能是说它是在特殊的情况下为静态的 children 使用的方法吧 🤷‍♀️ [这还有个链接](https://github.com/reactjs/rfcs/pull/107))
+
+## 总结
+- react 中的每个元素都是一个普通的 JS 对象
+- JSX 其实就是用 createElement 创建了一个 ReactElement
+- createElement 会返回一个 ReactElement 对象，这个对象在 react 中记录了当前元素的基本属性：type、key、ref、props ...

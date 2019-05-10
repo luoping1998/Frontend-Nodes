@@ -47,3 +47,5 @@ Object.assign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = true;
 
 ```
+
+> 后续应该跟进 标志位在哪有作用 如何作用 具体步骤
