@@ -45,6 +45,8 @@ const ReactDOM: Object = {
 
 ## legacyRenderSubtreeIntoContainer
 由函数名得该函数的功能，将子树 **render** 到容器中✌️。
+下图为 ReactDOM 的简要关系图：
+<img src="./imgs/reactDom1.png"/>
 ```
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>, // 父组件
