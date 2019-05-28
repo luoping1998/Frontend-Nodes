@@ -44,27 +44,27 @@ const ReactDOM: Object = {
 从上面代码中可以看到，在 ReactDOM 中 render 是通过调用 legacyRenderSubtreeIntoContainer 方法来实现的，所以就先来看看它的实现 🏃‍♀️。
 
 ## legacyRenderSubtreeIntoContainer
-由函数名得该函数的功能，将子树 **渲染** 到容器中✌️。
+由函数名得该函数的功能，将子树 **render** 到容器中✌️。
 ```
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>, // 父组件
-  children: ReactNodeList, // 子树 
+  children: ReactNodeList, // 需要挂载的子组件 
 
-  container: DOMContainer, // 容器？？？
+  container: DOMContainer, // 容器，挂载点，如 document.getElementBy('app')
   forceHydrate: boolean, // 是否为服务器渲染
   callback: ?Function, // 执行后的回调函数
 ) {
 
-  // 获取 container 的 root
+  // 获取 container 的 root 挂载点
   let root: Root = (container._reactRootContainer: any);
   // 如果没有 root，则认为需要挂载
   if (!root) { // 记为 🌿
-    // 创建 root，使用：legacyCreateRootFromDOMContainer 1⃣️
+    // 创建 container，使用：legacyCreateRootFromDOMContainer 1⃣️
     root = container._reactRootContainer = legacyCreateRootFromDOMContainer(
       container,
       forceHydrate,
     );
-    // 为回调函数绑定 this
+    // 在 instance 上执行 callback
     if (typeof callback === 'function') {
       const originalCallback = callback;
       callback = function() {
@@ -84,7 +84,7 @@ function legacyRenderSubtreeIntoContainer(
           callback,
         );
       } else {
-        // 将子组件直接渲染进 root
+        // 将子组件直接渲染进 root container
         root.render(children, callback);
       }
     });
@@ -101,13 +101,13 @@ function legacyRenderSubtreeIntoContainer(
 
     // 有parentComponent 将 subTree 渲染进父组件
     if (parentComponent != null) {
-      root.legacy_renderSubtreeIntoContainer( // 3⃣️
+      root.legacy_renderSubtreeIntoContainer( // 3⃣️ 如果存在父组件 将子组件装入父组件中
         parentComponent,
         children,
         callback,
       );
     } else {
-      // 渲染进 root 中
+      // 渲染进 root container 中
       root.render(children, callback);
     }
   }
@@ -116,6 +116,10 @@ function legacyRenderSubtreeIntoContainer(
 }
 ```
 由代码可以得出，当调用该函数时，如果组件没有 root，则认为是首次挂载，为其创建 root 并且不进入批处理队列 => 调用 unbatchedUpdates 挂载到相应的位置；否则的话，会被加入到批处理队列中，等待主线程空档期执行。
+
+下图为 legacyRenderSubtreeIntoContainer 的流程图：
+<img src="./imgs/ReactDom.png" />
+
 - legacyCreateRootFromDOMContainer 1⃣️ : 
 ```
 function legacyCreateRootFromDOMContainer(

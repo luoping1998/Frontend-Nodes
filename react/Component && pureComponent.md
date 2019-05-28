@@ -47,5 +47,7 @@ Object.assign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = true;
 
 ```
+> 下面为整理的 Component 和 PureComponent 之间的关系，其中的组件指的是 class 组件
 
+<img src="./imgs/Component.png"/>
 > 后续应该跟进 标志位在哪有作用 如何作用 具体步骤
