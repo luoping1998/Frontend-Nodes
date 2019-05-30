@@ -1,6 +1,6 @@
 # Component && pureComponent
 ## Component
-```
+```javascript
 // 工厂模式 定义基本属性 初始化
 function Component(props, context, updater) {
   this.props = props;
@@ -25,7 +25,7 @@ Component.prototype.forceUpdate = function(callback) {
 
 ```
 ## pureComponent
-```
+```javascript
 function ComponentDummy() {}
 ComponentDummy.prototype = Component.prototype;
 

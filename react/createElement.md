@@ -11,11 +11,11 @@ JSX 并不是一门新的语言，仅仅是个语法糖，允许开发者在 Jav
 
 ### 代码转换
 使用 JSX 的书写是为了让我们能更直观地看到组件的 DOM 结果，其最终还是通过解析器转化为 JavaScript 代码才能在浏览器端执行。比如我们写了如下一段代码：
-```
+```javascript
 var msg = <h1 width="10px">hello hangge.com</h1>;
 ```
 那么解析器就会转化为：
-```
+```javascript
 var msg = React.createElement("h1", {width: "10px"}, "hello hangge.com");
 ```
 也就是说，我们每写一个标签，就相当于调用一次 React.createElement 方法并最后返回一个 ReactElement 对象给我们。也可以不使用 JSX，而是直接通过 React.createElement 方法来创建 ReactElement 对象。
@@ -23,7 +23,7 @@ var msg = React.createElement("h1", {width: "10px"}, "hello hangge.com");
 >  JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用JavaScript 规则解析。
 ## ReactElement
 > 在 React 中，一个 react 元素就对应着一个普通的对象，即 ReactElement 类型对象。
-```
+```javascript
 const ReactElement = function(type, key, ref, self, source, owner, props) {
   const element = {
     // 标志位，方便辨别它是 react 元素
@@ -58,7 +58,7 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
 ## 创建 React 元素的方法
 通常两种写法：
 - JSX 语法（🌰 1）
-```
+```javascript
 // 在某组件的 render 中，返回一个 JSX 对象
 render() {
     const { headText, pText } = this.props;
@@ -71,7 +71,7 @@ render() {
 }
 ```
 - creatEmenlent 手动创建（🌰 2）
-```
+```javascript
 class Hello extends React.Component {
   render() {
     // 创建一个 div, children 为 `Hello ${this.props.toWhat}`
@@ -87,7 +87,7 @@ ReactDOM.render(
 ```
 > JSX 本身并不是什么高深的技术，可以说只是一个比较高级但很直观的语法糖。它非常有用，却不是一个必需品，没有 JSX 的 React 也可以正常工作，如 🌰 2。
 ### createElement 创建
-```
+```javascript
 export function createElement(type, config, children) {
   let propName;
 
@@ -163,7 +163,7 @@ export function createElement(type, config, children) {
 }
 ```
 ### jsx (react16 中新增)
-```
+```javascript
 export function jsx(type, config, maybeKey) {
   // 初始化会用到的一系列变量
   let propName;

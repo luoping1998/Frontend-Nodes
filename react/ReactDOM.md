@@ -47,7 +47,7 @@ const ReactDOM: Object = {
 由函数名得该函数的功能，将子树 **render** 到容器中✌️。
 下图为 ReactDOM 的简要关系图：
 <img src="./imgs/reactDom1.png"/>
-```
+```javascript
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>, // 父组件
   children: ReactNodeList, // 需要挂载的子组件 
@@ -123,31 +123,35 @@ function legacyRenderSubtreeIntoContainer(
 <img src="./imgs/ReactDom.png" />
 
 - legacyCreateRootFromDOMContainer 1⃣️ : 
-```
+通过 DOMContainer 创建 root container:
+```javascript
 function legacyCreateRootFromDOMContainer(
   container: DOMContainer,
   forceHydrate: boolean,
 ): Root {
   const shouldHydrate =
     forceHydrate || shouldHydrateDueToLegacyHeuristic(container);
-  // First clear any existing content.
+  // 清除 container 中的内容
   if (!shouldHydrate) {
     let warned = false;
     let rootSibling;
+    // 移除 container 中的节点
     while ((rootSibling = container.lastChild)) {
       container.removeChild(rootSibling);
     }
   }
 
-  // Legacy roots are not async by default.
+  // 默认不为同步
   const isConcurrent = false;
+  // 返回一个 ReactRoot 对象，见下 *ReactRoot*
   return new ReactRoot(container, isConcurrent, shouldHydrate);
 }
 ```
 - unbatchedUpdates 2⃣️ : 
 - legacy_renderSubtreeIntoContainer 3⃣️ : 见 ReactRoot.legacy_renderSubtreeIntoContainer
+
 ## ReactRoot
-```
+```javascript
 function ReactRoot(
   container: DOMContainer,
   isConcurrent: boolean,
@@ -156,6 +160,7 @@ function ReactRoot(
   const root = createContainer(container, isConcurrent, hydrate);
   this._internalRoot = root;
 }
+
 ReactRoot.prototype.render = function(
   children: ReactNodeList,
   callback: ?() => mixed,
@@ -172,6 +177,7 @@ ReactRoot.prototype.render = function(
   updateContainer(children, root, null, work._onCommit); // 更新？
   return work; // 返回 work
 };
+
 ReactRoot.prototype.unmount = function(callback: ?() => mixed): Work {
   const root = this._internalRoot;
   const work = new ReactWork();
@@ -185,12 +191,14 @@ ReactRoot.prototype.unmount = function(callback: ?() => mixed): Work {
   updateContainer(null, root, null, work._onCommit);
   return work;
 };
+
+// 更新 container
 ReactRoot.prototype.legacy_renderSubtreeIntoContainer = function(
   parentComponent: ?React$Component<any, any>,
   children: ReactNodeList,
   callback: ?() => mixed,
 ): Work {
-  const root = this._internalRoot;
+  const root = this._internalRoot; // 当前挂载点
   const work = new ReactWork();
   callback = callback === undefined ? null : callback;
   if (__DEV__) {
