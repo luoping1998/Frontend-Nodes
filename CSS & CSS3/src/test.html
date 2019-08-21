@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>css阻塞</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      h1 {
+        color: red !important
+      }
+    </style>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+
+    <script>
+        function h () {
+          document.write('hhhhhh');
+          console.log(document.querySelectorAll('h1'))
+        }
+        setTimeout(h, 1000);
+      </script>
+  </head>
+  <body>
+    <h1>这是红色的</h1>
+  </body>
+</html>

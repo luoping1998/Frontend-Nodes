@@ -37,7 +37,7 @@
 > 屏幕 / font-size = 某系数 x \
 > 640px / 100px = deviceWidth / ?font-size \
 > 320px / ?font-size = 某系数 x \
-> 🌝 font-size = deviceWidth / 某系数\
+> 🌝 font-size = deviceWidth / 某系数
 
 3. 如果采用网易这种做法，视口要如下设置
 ```html

@@ -1,6 +1,7 @@
 # 基础 React
 直接进入 react 中的 index.js 文件，可以看到如下：
-```
+
+```javascript
 const React = {
   Children: {
     map,

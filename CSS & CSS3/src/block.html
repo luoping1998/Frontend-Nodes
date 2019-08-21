@@ -1,80 +1,82 @@
 <!DOCTYPE html>
-<head>
-  <title lang="UTF-8">block</title>
-  <style>
-    .father {
-      background: pink;
-      width: 900px;
-      height: 900px;
-    }
-
-    .block-child {
-      display: block;
-      background: lightblue;
-    }
-
-    .inline-child {
-      display: inline;
-      background: lightgreen;
-    }
-
-    .inline-block-child {
-      display: inline-block;
-      background: lightcoral;
-    }
-
-    .set-width {
-      width: 100px;
-    }
-
-    .set-height {
-      height: 100px;
-    }
-
-    .set-margin {
-      margin: 10px;
-    }
-
-    .set-padding {
-      padding: 10px;
-    }
-
-    .set-lineheight {
-      line-height: 100px;
-    }
-  </style>
-</head>
-<body>
-  <div class="father">
-    <div class="block-child">
-      没设置宽度，高度由内容撑开的 block
-    </div>
-    <div class="block-child set-height set-width set-margin set-padding">
-      设置宽高、margin、padding的 block
-    </div>
-    <div class="block-child set-lineheight">
-      设置行高的 block
-    </div>
-
-    <div>nihaohhhhhh<span class="inline-child set-padding">inline 设置padding</span>视觉上上下生效，实际不影响其他元素的布局</div>
-  
-    <p>开始啦表演
-      <span class="inline-child">inline</span>
-      <span class="inline-child set-height set-width set-margin set-padding">
-        设置宽高、margin、padding的 inline
-      </span>
-      <span class="inline-child set-lineheight">
-        设置行高的 inline
-      </span>
-    </p>
-
-    <div>
-      <span class="inline-block-child">inline-block</span>
-      <span class="inline-block-child set-height set-width">inline-block 设置宽高</span>
-      <span class="inline-block-child set-lineheight">inline-block 设置杭高</span>
-      <span class="inline-block-child set-padding">inline-block 设置padding</span>
-      <span class="inline-block-child set-margin">inline-block margin</span>
-
-    </div>
-  </div>
-</body>
+<html>
+    <head>
+        <title lang="UTF-8">block</title>
+        <style>
+          .father {
+            background: pink;
+            width: 900px;
+            height: 900px;
+          }
+      
+          .block-child {
+            display: block;
+            background: lightblue;
+          }
+      
+          .inline-child {
+            display: inline;
+            background: lightgreen;
+          }
+      
+          .inline-block-child {
+            display: inline-block;
+            background: lightcoral;
+          }
+      
+          .set-width {
+            width: 100px;
+          }
+      
+          .set-height {
+            height: 100px;
+          }
+      
+          .set-margin {
+            margin: 10px;
+          }
+      
+          .set-padding {
+            padding: 10px;
+          }
+      
+          .set-lineheight {
+            line-height: 100px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="father">
+          <div class="block-child">
+            没设置宽度，高度由内容撑开的 block
+          </div>
+          <div class="block-child set-height set-width set-margin set-padding">
+            设置宽高、margin、padding的 block
+          </div>
+          <div class="block-child set-lineheight">
+            设置行高的 block
+          </div>
+      
+          <div>nihaohhhhhh<span class="inline-child set-padding">inline 设置padding</span>视觉上上下生效，实际不影响其他元素的布局</div>
+        
+          <p>开始啦表演
+            <span class="inline-child">inline</span>
+            <span class="inline-child set-height set-width set-margin set-padding">
+              设置宽高、margin、padding的 inline
+            </span>
+            <span class="inline-child set-lineheight">
+              设置行高的 inline
+            </span>
+          </p>
+      
+          <div>
+            <span class="inline-block-child">inline-block</span>
+            <span class="inline-block-child set-height set-width">inline-block 设置宽高</span>
+            <span class="inline-block-child set-lineheight">inline-block 设置杭高</span>
+            <span class="inline-block-child set-padding">inline-block 设置padding</span>
+            <span class="inline-block-child set-margin">inline-block margin</span>
+      
+          </div>
+        </div>
+      </body>
+</html>

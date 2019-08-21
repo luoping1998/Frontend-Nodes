@@ -1,7 +1,7 @@
 > 在挂载根组件时，通常通过手动调用 React.render(<App />, document.getElementById("root"))，那 render 到底做了 什🐎 呢？
 
 # ReactDOM
-```
+```javascript
 const ReactDOM: Object = {
   // react16 中新，用于将 dom 添加在组件之外
   createPortal,
@@ -44,9 +44,12 @@ const ReactDOM: Object = {
 从上面代码中可以看到，在 ReactDOM 中 render 是通过调用 legacyRenderSubtreeIntoContainer 方法来实现的，所以就先来看看它的实现 🏃‍♀️。
 
 ## legacyRenderSubtreeIntoContainer
+
 由函数名得该函数的功能，将子树 **render** 到容器中✌️。
 下图为 ReactDOM 的简要关系图：
+
 <img src="./imgs/reactDom1.png"/>
+
 ```javascript
 function legacyRenderSubtreeIntoContainer(
   parentComponent: ?React$Component<any, any>, // 父组件
@@ -59,6 +62,7 @@ function legacyRenderSubtreeIntoContainer(
 
   // 获取 container 的 root 挂载点
   let root: Root = (container._reactRootContainer: any);
+
   // 如果没有 root，则认为需要挂载
   if (!root) { // 记为 🌿
     // 创建 container，使用：legacyCreateRootFromDOMContainer 1⃣️
@@ -117,13 +121,16 @@ function legacyRenderSubtreeIntoContainer(
   return getPublicRootInstance(root._internalRoot);
 }
 ```
+
 由代码可以得出，当调用该函数时，如果组件没有 root，则认为是首次挂载，为其创建 root 并且不进入批处理队列 => 调用 unbatchedUpdates 挂载到相应的位置；否则的话，会被加入到批处理队列中，等待主线程空档期执行。
 
 下图为 legacyRenderSubtreeIntoContainer 的流程图：
+
 <img src="./imgs/ReactDom.png" />
 
 - legacyCreateRootFromDOMContainer 1⃣️ : 
 通过 DOMContainer 创建 root container:
+
 ```javascript
 function legacyCreateRootFromDOMContainer(
   container: DOMContainer,
