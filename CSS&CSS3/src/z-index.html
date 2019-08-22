@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .div1 {
+        width: 100vw;
+        height: 100vh;
+        background: lightblue;
+        position: relative;
+        z-index: 2;
+      }
+
+      .div2 {
+        width: 100vw;
+        height: 100vh;
+        background: lightcoral;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .div11, .div12, .div3 {
+        width: 50%;
+        height: 50%;
+        background: lightgreen;
+      }
+
+      .div12 {
+        background: darkorange;
+        z-index: 200;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .div3 {
+        background: darkcyan;
+        z-index: 300;
+        position: absolute;
+      }
+
+      .ele {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: 300px;
+        left: 300px;
+        background: slateblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="div1">
+      <div class="div11">
+        <div class="div12"></div>
+      </div>
+      <div class="div3"></div>
+    </div>
+    <div class="div2">
+      <div class="ele"></div>
+    </div>
+  </body>
+</html>
