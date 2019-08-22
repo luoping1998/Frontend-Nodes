@@ -3,8 +3,7 @@
 ### 当前设想
 - [HTML&HTML5](./HTML&HTML5/README.md)
 - [CSS&CSS3](./CSS&CSS3/README.md)
-- [JavaScript](./JavaScript/README.md)
-- [ES6](./ES6/README.md)
+- [JavaScript&ES6](./JavaScript&ES6/README.md)
 - [react](./react.md)
 - 数据结构
 - 计算机网络
