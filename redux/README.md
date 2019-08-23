@@ -93,7 +93,7 @@ const mapStatetoProps = state => {
 export default connect(SleepCmp)(map)
 ```
 
-### React 中s使用
+### React 中使用
 
 ```javascript
 import { createStore } from 'redux';
@@ -102,13 +102,12 @@ import initalState from './const';
 
 // 创建 store, 传入 reducer 和 初始 state
 let store = createStore(bossReducer, initalState);
-
-
 ```
 
 ## 简单实现
 ```javascript
-const createStore = (reducer, initialState) {
+// enhancer 中间件 先不说
+const createStore = (reducer, initialState, enhancer) {
   const store = {};
   store.state = initialState || {};
   store.listeners = [];
@@ -143,3 +142,6 @@ const createStore = (reducer, initialState) {
 可以看到，reduce 函数是对数组中的值进行一次指定的操作，得到的新值作为下次操作时的 cur 值，继续和当前的 val 值做操作...
 
 把数组中的值当作 state 的话，就可以发现，其实在项目中，对 state 的一些修改，也是基于上次的 state，且这次的新 state 会影响下次的操作结果。
+
+## 扩展
+[combineReducers](./combineReducers.md)
