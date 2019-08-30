@@ -107,7 +107,7 @@ middleware = ({ dispatch, getState }) => next => action => {...}
 // 比如 redux-thunk
 function createThunkMiddleware(extraArgument) {
   return ({ dispatch, getState }) => next => action => {
-    // 如果 action 是函数 (日常异步的使用)
+    // 如果 action 是函数 传入 dispatch 可以在 action 内部进行 dispatch 和 state 的获取 ...
     if (typeof action === 'function') {
       return action(dispatch, getState, extraArgument);
     }

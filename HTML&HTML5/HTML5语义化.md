@@ -69,7 +69,7 @@
     <h1>Mozilla Firefox</h1>
     <p>Firefox 是一款来自 Mozilla 的免费开源 web 浏览器，发布于 2004 年。</p>
   </article>
-</main> 
+</main>
 ```
 
 ### section
@@ -113,15 +113,13 @@ The Epcot Center is a theme park in Disney World, Florida.
 ```html
 <footer>
   <p>Posted by: W3School</p>
-  <p>Contact information: <a href="mailto:someone@example.com">someone@example.com</a>.</p>
+  <p>Contact information:
+    <a href="mailto:someone@example.com">someone@example.com</a>
+  </p>
 </footer>
 ```
-
-
-
-
 
 ## 总结
 共勉：培养好良好的代码习惯和规范，在开发过程中给自己和团队成员都会减少不少的麻烦。
 
-> 本文例子及概念描述摘自 W3CScholl 
+> 本文例子及概念描述摘自 W3CScholl

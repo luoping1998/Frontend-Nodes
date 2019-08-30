@@ -44,7 +44,7 @@
 
 ```css
   .wrap {
-    overflow: hidden; /* BFC 才能内化浮动元素*/    
+    overflow: hidden; /* BFC 才能内化浮动元素*/
   }
 
   .left, .right {
@@ -60,7 +60,7 @@
 
 ```css
   .wrap {
-    overflow: hidden; /* BFC 才能内化浮动元素*/    
+    overflow: hidden; /* BFC 才能内化浮动元素*/
   }
 
   .left {
@@ -76,7 +76,7 @@
 
 ```css
   .wrap {
-    position: relative;    
+    position: relative;
   }
 
   .left {
@@ -94,7 +94,7 @@
 
 ```css
   .wrap {
-    overflow: hidden; /* BFC 才能内化浮动元素*/    
+    overflow: hidden; /* BFC 才能内化浮动元素*/
   }
 
   .left {
@@ -159,7 +159,7 @@
   }
 ```
 
-## 双 float + BFC 
+## 双 float + BFC
 
 ```css
   .main {
@@ -185,7 +185,7 @@
   .wrap {
     width: 100%;
     height: 100%;
-    padding: 0 120px;
+    padding: 0 120px; /* 看这里 */
     overflow: hidden;
   }
 

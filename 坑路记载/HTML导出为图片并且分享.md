@@ -16,7 +16,9 @@
 - [ XMLSerializer 对象](./XMLSerializer.md)
 ### 实现思路 💡
 - 保存为图片
+
 > 通过将要“导出成图片”的 DOM 节点及其内部的子节点的 CSS 样式通过 getComputedStyle() 方法获取到，然后设置成元素内联的样式，然后将整个 DOM 树放至 XMLSerializer 对象的 serializeToString() 方法中，序列化出它的结构字符串，然后使用数据 URL 内联 SVG, `data:xml+svg,${str}` str 位置，然后作为 img 的 src 属性值传入，并在 img 的 onload 函数中用 canvas 绘制出需要大小的 canvas 并利用其 toDataURL()，导出最后的 base64 字符串，利用 a 标签的 download 属性，保存在本地。
+
 - 分享
 
 ### 坑路详情 🔎
@@ -33,8 +35,12 @@
 > 原因： canvas 受到了同源策略的制裁 😢，虽然可以 append 到页面上展示出来，但是无法使用它的 toBlob(), toDataURL() 和 getImageData() 方法。
 
 > 解决方案：为图片设置 crossOrigin 属性为 “Anonymous" （类似于前端 ajax 跨域）
-参考链接🔗：[启用了 cros 的图片](https://developer.mozilla.org/zh-CN/docs/Web/HTML/CORS_enabled_image)
+
+参考链接🔗：
+
+[启用了 cros 的图片](https://developer.mozilla.org/zh-CN/docs/Web/HTML/CORS_enabled_image)\
 [canvas 图片跨域问题](https://www.zhangxinxu.com/wordpress/2018/02/crossorigin-canvas-getimagedata-cors/)
+
 5. 对于这种思路，在浏览器中可以实现保存，但是在 webview 中并没有自动下载。
 > 原因：在调试中发现，安卓的 webview 中是走到了 download 回调，但是将传入的 url 当作普通的 url 来处理，而不是当成一组 base64 的数据来处理。
 

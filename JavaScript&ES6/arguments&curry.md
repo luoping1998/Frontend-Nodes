@@ -18,7 +18,7 @@ Function.length 表示函数预期(定义时)需要的参数个数
 function curry(fn) {
   // 获取第一次 curry 的时候传入的参数
   let outArgs = [...arguments].slice(1);
-  return f1() {
+  return function() {
     let tarN = fn.length; // 预期需要的参数个数
     // 合并参数
     let args = [...outArgs, ...arguments];
