@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  <ul>
+    <li>
+      <input type="checkbox" key="all"/>
+      全选
+    </li>
+    <li>
+      <input type="checkbox" key="1"/>
+      1
+    </li>
+    <li>
+      <input type="checkbox" key="2"/>
+      2
+    </li>
+    <li>
+      <input type="checkbox" key="3"/>
+      3
+    </li>
+  </ul>
+</body>
+<script>
+window.onload = function() {
+  let ul = document.querySelector('ul');
+  let list = document.querySelectorAll('input');
+  ul.addEventListener('click', handleClick, false);
+  let flag = false;
+
+  function handleClick(e) {
+    let key = e.tatgett.key;
+    if (key === 'all') {
+      handleAll();
+    }else {
+      handleKey(i);
+    }
+  }
+
+  function handleAll() {
+    flag = !flag;
+    for(let i = 0; i < list.length; i ++) {
+      list[0].checked = flag;
+    }
+  }
+
+  function handleKey(i) {
+    if (flag) {
+      
+    }
+  }
+}
+
+</script>
+</html>
